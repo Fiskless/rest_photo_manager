@@ -1,5 +1,4 @@
 from rest_framework import status
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 
@@ -11,8 +10,7 @@ from django_filters import rest_framework as filters
 
 class PhotoCreateView(ModelViewSet):
 
-    permission_classes = [IsAuthenticated]
-    serializer_class = PhotoWithoutMetaDataSerializer
+    serializer_class = PhotoCreateSerializer
     queryset = Photo.objects.all()
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = PhotoFilter
