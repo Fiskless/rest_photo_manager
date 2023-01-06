@@ -15,4 +15,4 @@ class PhotoCreateSerializer(serializers.ModelSerializer):
 class PhotoWithoutMetaDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = Photo
-        fields = ("id", "photo")
+        fields = ["id", "photo"]

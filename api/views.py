@@ -3,8 +3,10 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 
+from .filters import PhotoFilter
 from .models import Photo
 from .serializers import PhotoCreateSerializer, PhotoWithoutMetaDataSerializer
+from django_filters import rest_framework as filters
 
 
 class PhotoCreateView(ModelViewSet):
@@ -12,6 +14,8 @@ class PhotoCreateView(ModelViewSet):
     permission_classes = [IsAuthenticated]
     serializer_class = PhotoWithoutMetaDataSerializer
     queryset = Photo.objects.all()
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = PhotoFilter
 
     def create(self, request, *args, **kwargs):
 
