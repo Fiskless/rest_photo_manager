@@ -1,6 +1,7 @@
-from rest_framework.routers import DefaultRouter
+from django.urls import path, include
 
-router = DefaultRouter()
+from .routers import router
 
-
-urlpatterns = router.urls
+urlpatterns = [
+    path('', include(router.urls)),
+]
