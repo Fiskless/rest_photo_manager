@@ -10,10 +10,15 @@ from django_filters import rest_framework as filters
 
 class PhotoCreateView(ModelViewSet):
 
-    serializer_class = PhotoCreateSerializer
     queryset = Photo.objects.all()
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = PhotoFilter
+
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return PhotoWithoutMetaDataSerializer
+        else:
+            return PhotoCreateSerializer
 
     def create(self, request, *args, **kwargs):
 
