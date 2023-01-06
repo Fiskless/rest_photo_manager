@@ -1,5 +1,5 @@
-from rest_framework import status
-from rest_framework.viewsets import ModelViewSet
+from rest_framework import status, mixins
+from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from rest_framework.response import Response
 
 from .filters import PhotoFilter
@@ -8,7 +8,11 @@ from .serializers import PhotoCreateSerializer, PhotoWithoutMetaDataSerializer
 from django_filters import rest_framework as filters
 
 
-class PhotoCreateView(ModelViewSet):
+class PhotoCreateView(mixins.CreateModelMixin,
+                   mixins.RetrieveModelMixin,
+                   mixins.DestroyModelMixin,
+                   mixins.ListModelMixin,
+                   GenericViewSet):
 
     queryset = Photo.objects.all()
     filter_backends = (filters.DjangoFilterBackend,)
@@ -21,7 +25,6 @@ class PhotoCreateView(ModelViewSet):
             return PhotoCreateSerializer
 
     def create(self, request, *args, **kwargs):
-
         serializer = PhotoCreateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.validated_data['people_names'] = [name.lstrip() for name in
@@ -32,11 +35,6 @@ class PhotoCreateView(ModelViewSet):
         return Response(
             serializer.data, status=status.HTTP_201_CREATED, headers=headers
         )
-
-    def retrieve(self, request, *args, **kwargs):
-        photo = self.get_object()
-        serializer = PhotoCreateSerializer(photo)
-        return Response(serializer.data)
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
