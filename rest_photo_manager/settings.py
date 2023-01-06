@@ -84,7 +84,7 @@ WSGI_APPLICATION = 'rest_photo_manager.wsgi.application'
 DATABASES = {
     'default': env.dj_db_url(
         'DATABASE_URL',
-        env.str('DATABASE_URL', 'postgres://user:password@localhost:5432/photos'),
+        env.str('DATABASE_URL', 'postgres://user:password@postgres:5432/photos'),
     )
 }
 
