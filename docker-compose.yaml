@@ -15,6 +15,8 @@ services:
   django:
     build: .
     command: bash -c "while !</dev/tcp/postgres/5432; do sleep 1; done; python /code/manage.py migrate --noinput && python /code/manage.py collectstatic --noinput && python /code/manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - media:/code/media
     env_file:
       - .env
     ports:
@@ -24,3 +26,4 @@ services:
 
 volumes:
   postgres-data:
+  media:
