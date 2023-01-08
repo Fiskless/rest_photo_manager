@@ -51,7 +51,10 @@ docker-compose run django ./manage.py createsuperuser
 
 ## Документация по API
 
-Для просмотра всех возможностей API перейдите по [ссылке](http://0.0.0.0:8000/api/schema/swagger-ui/)
+Апи автоматически замокано при помощи [библиотеки](https://drf-spectacular.readthedocs.io/en/latest/readme.html).
+Для просмотра запросов API перейдите по [ссылке](http://0.0.0.0:8000/api/schema/swagger-ui/)
+ДЛя просмотра спецификации по API перейдите по [ссылке](http://0.0.0.0:8000/api/schema/)
+ДЛя просмотра документации по API перейдите по [ссылке](http://0.0.0.0:8000/api/schema/redoc/)
 
 
 ## Технологии
